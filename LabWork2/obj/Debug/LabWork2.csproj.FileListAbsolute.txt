@@ -1,0 +1,7 @@
+C:\My Documents\Visual Studio 2017\Projects\LabWork2\LabWork2\bin\Debug\LabWork2.exe.config
+C:\My Documents\Visual Studio 2017\Projects\LabWork2\LabWork2\bin\Debug\LabWork2.exe
+C:\My Documents\Visual Studio 2017\Projects\LabWork2\LabWork2\bin\Debug\LabWork2.pdb
+C:\My Documents\Visual Studio 2017\Projects\LabWork2\LabWork2\obj\Debug\LabWork2.csproj.CoreCompileInputs.cache
+C:\My Documents\Visual Studio 2017\Projects\LabWork2\LabWork2\obj\Debug\LabWork2.exe
+C:\My Documents\Visual Studio 2017\Projects\LabWork2\LabWork2\obj\Debug\LabWork2.pdb
+C:\My Documents\Visual Studio 2017\Projects\LabWork2\LabWork2\obj\Debug\LabWork2.csprojResolveAssemblyReference.cache

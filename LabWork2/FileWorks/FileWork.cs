@@ -7,10 +7,6 @@ namespace LabWork2.FileWorks
 {
     class FileWork : IFileWork
     {
-        private string[] ReservedFileNames = { "con.", "nul.", "prn.", "aux.", "com1.", "com2.", "com3.", 
-                     "com4.", "com5.", "com6.", "com7.", "com8.", "com9.", "lpt1.", "lpt2.", "lpt3.",
-                        "lpt4.", "lpt5.", "lpt6.","lpt7.", "lpt8.", "lpt9."};
-
         public String ReadFromFile()
         {
             string fileName;
@@ -36,66 +32,74 @@ namespace LabWork2.FileWorks
 
         public void WriteIntoTheFile(string text)
         {
-            string fileName;
+            string fileName = "";
             FileStream fileStream;
             Confirmation confirmation = new Confirmation();
             StreamWriter streamWriter;
             InputValidation inputValidation = new InputValidation();
-
-            Console.Write("Enter the name of file: ");
-            while (true)
+            bool fileIsSaved = false;
+            while (!fileIsSaved)
             {
-                fileName = Console.ReadLine();
-                bool wrongFileName = false;
-                //При встрече первого неподходящего символа в файле выставит флаг о неправильном исени файла
-                foreach(char c in fileName)
+                fileIsSaved = true;
+                bool wrongFileName = true;
+                Console.Write("Enter the name of file: ");
+                while (wrongFileName)
                 {
-                    if(!(Char.IsLetterOrDigit(c) || c.Equals('.')))
+                    fileName = Console.ReadLine();
+                    wrongFileName = false;
+                    try
                     {
-                        Console.WriteLine("Name of the file can contain only lettres, numbers  and '.'");
-                        wrongFileName = true;
-                        break;
-                    }
-                }
-                if (!fileName.Contains(".txt"))
-                {
-                    fileName += ".txt";
-                }
-                foreach(String name in ReservedFileNames)
-                {
-                    if (fileName.Contains("//" + name) || fileName.Substring(0,4).Equals(name) || fileName.Substring(0, 5).Equals(name))
-                    {
-                        Console.WriteLine("You can't save file, with prohibitted or reserved names, like " + name);
-                        wrongFileName = true;
-                        break;
-                    }
-                }
-                if (!wrongFileName) { break; }
-                else { Console.Write("Try again:"); }
-            }
+                        using(streamWriter = new StreamWriter(fileName))
+                        {
 
-            if (File.Exists(fileName))
-            {      
-                if (confirmation.Confirm("Do you want to rewrite the file? Y/N"))
+                        }
+
+                    }
+                    catch
+                    {
+                        Console.WriteLine("Error occured");
+                        Console.Write("Try again:");
+                        wrongFileName = true;
+                    }
+                    
+                }
+
+                if (File.Exists(fileName))
                 {
-                    fileStream = new FileStream(fileName, FileMode.Open);
+                    if (confirmation.Confirm("Do you want to rewrite the file? Y/N"))
+                    {
+                        fileStream = new FileStream(fileName, FileMode.Open);
+                    }
+                    else
+                    {
+                        if (confirmation.Confirm("Do you want to add your txt to the end of the file? Y/N"))
+                        {
+                            fileStream = new FileStream(fileName, FileMode.Append);
+                        }
+                        else
+                        {
+                            fileIsSaved = false;
+                            Console.WriteLine("Choose another file");
+                            continue;
+                        }
+                    }
                 }
                 else
                 {
-                    fileStream = new FileStream(fileName, FileMode.Append);
+                    fileStream = new FileStream(fileName, FileMode.Create);
                 }
-            }
-            else
-            {
-                fileStream = new FileStream(fileName, FileMode.Create);
-            }
-            
 
-            streamWriter = new StreamWriter(fileStream);
-            streamWriter.Write(text);
 
-            streamWriter.Close();
-            fileStream.Close();
+                streamWriter = new StreamWriter(fileStream);
+                foreach(char c in text)
+                {
+                    streamWriter.Write(c);
+                }
+                streamWriter.Write('\n');
+
+                streamWriter.Close();
+                fileStream.Close();
+            }
         }
     }
 }

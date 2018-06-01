@@ -55,9 +55,8 @@
     <Compile Include="Input\InputValidation.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Solution\Caesar.cs" />
-    <Compile Include="Solution\ICypher.cs" />
-    <Compile Include="Solution\RotThirteen.cs" />
+    <Compile Include="Solution\ICipher.cs" />
+    <Compile Include="Solution\Сiphers.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

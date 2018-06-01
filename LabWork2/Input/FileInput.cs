@@ -14,33 +14,34 @@ namespace LabWork2.Input
             while (text.Equals(""))
             {
                 text = fileWork.ReadFromFile();
+
             }
             IInputValidation inputValidation = new InputValidation();
-            ICypher cypher;
+            ICipher cipher;
             if (chosenTypeOfEncryption == 1)
             {
-                cypher = new Caesar();
+                cipher = new Сiphers();
                 if (typeOfOperation == 2)
                 {
                     int key = inputValidation.CorrectIntInput("Enter encryprion key(1-25): ", 1, 25);
-                    text = cypher.Encrypt(text, key);
+                    text = cipher.Encrypt(text, key);
                 }
                 else
                 {
                     int key = inputValidation.CorrectIntInput("Enter encryprion key(1-25): ", 1, 25);
-                    text = cypher.Decrypt(text, key);      
+                    text = cipher.Decrypt(text, key);      
                 }
             }
             else
             {
-                cypher = new RotThirteen();
+                cipher = new Сiphers();
                 if (typeOfOperation == 2)
                 {
-                     text = cypher.Encrypt(text);
+                     text = cipher.Encrypt(text);
                 }
                 else
                 {
-                    text = cypher.Decrypt(text);
+                    text = cipher.Decrypt(text);
                 }
             }
 

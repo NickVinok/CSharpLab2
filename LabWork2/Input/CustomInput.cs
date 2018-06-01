@@ -1,6 +1,6 @@
-﻿using System;
+﻿using LabWork2.FileWorks;
 using LabWork2.Solution;
-using LabWork2.FileWorks;
+using System;
 
 namespace LabWork2.Input
 {
@@ -9,51 +9,56 @@ namespace LabWork2.Input
         public void Input(int chosenTypeOfEncryption, int typeOfOperation)
         {
             FileWork fileWork = new FileWork();
-            ICypher cypher;
+            ICipher cipher;
             IInputValidation inputValidation = new InputValidation();
             string text = "";
+            string changed;
             if(chosenTypeOfEncryption == 1)
             {
-                cypher = new Caesar();
+                cipher = new Сiphers();
                 if(typeOfOperation == 1)
                 {
                     Console.Write("Enter the text, you want to encrypt: ");
                     text = Console.ReadLine();
                     int key = inputValidation.CorrectIntInput("Enter encryprion key(1-36)", 1, 36);
-                    text = cypher.Encrypt(text, key);
+                    changed = cipher.Encrypt(text, key);
+                    
                 }
                 else
                 {
                     Console.Write("Enter the text, you want to decrypt: ");
                     text = Console.ReadLine();
                     int key = inputValidation.CorrectIntInput("Enter encryprion key(1-36)", 1, 36);
-                    text = cypher.Decrypt(text, key);
-                   
+                    changed = cipher.Decrypt(text, key);
+                    
                 }
             }
             else
             {
-                cypher = new RotThirteen();
+                cipher = new Сiphers();
                 if (typeOfOperation == 1)
                 {
                     Console.Write("Enter the text, you want to encrypt: ");
                     text = Console.ReadLine();
-                    cypher.Encrypt(text);
+                    changed = cipher.Encrypt(text);
+                   
                 }
                 else
                 {
                     Console.Write("Enter the text, you want to decrypt: ");
                     text = Console.ReadLine();
-                    text = cypher.Decrypt(text);
+                    changed = cipher.Decrypt(text);
+                    
                 }
             }
 
-            Console.WriteLine(text);
+            Console.WriteLine(changed);
+
 
             Confirmation confirmation = new Confirmation();
             if (confirmation.Confirm("Do you want to save the results? Y/N"))
             {
-                fileWork.WriteIntoTheFile(text);
+                fileWork.WriteIntoTheFile(changed);
             }
         }
     }
